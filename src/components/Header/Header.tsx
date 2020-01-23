@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { ROUTES } from 'utils/routes';
 
@@ -8,27 +8,55 @@ interface IProps {
   navigateTo: (route: string) => void;
 }
 
-export const Header: React.FC<IProps> = ({ navigateTo }) => {
-  const handleClick = (route: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
+const headerStructure = [
+  {
+    className: 'header__item',
+    text: 'Войти',
+    href: '/',
+    address: ROUTES.login,
+  },
+  {
+    className: 'header__item',
+    text: 'Зарегестрироваться',
+    href: '/',
+    address: ROUTES.signup,
+  },
+  {
+    className: 'header__item',
+    text: 'Карта',
+    href: '/',
+    address: ROUTES.map,
+  },
+  {
+    className: 'header__item',
+    text: 'Профиль',
+    href: '/',
+    address: ROUTES.profile,
+  },
+];
 
-    navigateTo(route);
-  };
+export const Header: React.FC<IProps> = ({ navigateTo }) => {
+  const handleClick = useCallback(
+    route => (e: any) => {
+      e.preventDefault();
+
+      navigateTo(route);
+    },
+    [navigateTo],
+  );
 
   return (
     <div className="header">
-      <a href="/" className="header__item" onClick={handleClick(ROUTES.login)}>
-        Войти
-      </a>
-      <a href="/" className="header__item" onClick={handleClick(ROUTES.signup)}>
-        Зарегестрироваться
-      </a>
-      <a href="/" className="header__item" onClick={handleClick(ROUTES.map)}>
-        Карта
-      </a>
-      <a href="/" className="header__item" onClick={handleClick(ROUTES.profile)}>
-        Профиль
-      </a>
+      {headerStructure.map((headerItem, index) => (
+        <a
+          key={index}
+          href={headerItem.href}
+          className={headerItem.className}
+          onClick={handleClick(headerItem.address)}
+        >
+          {headerItem.text}
+        </a>
+      ))}
     </div>
   );
 };

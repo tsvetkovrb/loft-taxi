@@ -7,12 +7,14 @@ import './App.scss';
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState('login');
 
-  const currentScreen = SCREENS[activeScreen];
+  const CurrentScreen = SCREENS[activeScreen];
 
   return (
     <>
       <Header navigateTo={setActiveScreen} />
-      <div className="App">{currentScreen}</div>
+      <div className="App">
+        <CurrentScreen setActiveScreen={setActiveScreen} />
+      </div>
     </>
   );
 };

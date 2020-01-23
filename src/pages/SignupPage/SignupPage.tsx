@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import './SignupPage.scss';
+import { ROUTES } from 'utils/routes';
 
-export const SignupPage: React.FC = () => {
+interface IProps {
+  setActiveScreen: (activeScreen: string) => void;
+}
+
+export const SignupPage: React.FC<IProps> = ({ setActiveScreen }) => {
   const [userData, setUserData] = useState({
     email: '',
     firstName: '',
@@ -18,7 +23,7 @@ export const SignupPage: React.FC = () => {
   const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    alert(JSON.stringify(userData, null, 2));
+    setActiveScreen(ROUTES.map);
   };
 
   return (
