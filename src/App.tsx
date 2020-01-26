@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Header } from 'components/Header/Header';
 import { SCREENS } from 'utils/screens';
 
-import './App.scss';
+import './App.css';
 
 export const App: React.FC = () => {
   const [activeScreen, setActiveScreen] = useState('login');

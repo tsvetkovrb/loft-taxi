@@ -1,12 +1,26 @@
 import React, { useCallback } from 'react';
-
+import { AppBar, Container, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import logoIcon from './static/logo.png';
 import { ROUTES } from 'utils/routes';
-
-import './Header.scss';
 
 interface IProps {
   navigateTo: (route: string) => void;
 }
+
+const useStyles = makeStyles({
+  header: {
+    backgroundColor: '#ffffff',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    height: 80,
+  },
+  container: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+});
 
 const headerStructure = [
   {
@@ -35,7 +49,9 @@ const headerStructure = [
   },
 ];
 
-export const Header: React.FC<IProps> = ({ navigateTo }) => {
+export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
+  const styles = useStyles();
+
   const handleClick = useCallback(
     route => (e: any) => {
       e.preventDefault();
@@ -46,17 +62,22 @@ export const Header: React.FC<IProps> = ({ navigateTo }) => {
   );
 
   return (
-    <div className="header">
-      {headerStructure.map((headerItem, index) => (
-        <a
-          key={index}
-          href={headerItem.href}
-          className={headerItem.className}
-          onClick={handleClick(headerItem.address)}
-        >
-          {headerItem.text}
-        </a>
-      ))}
-    </div>
+    <AppBar className={styles.header} position='static'>
+      <Container className={styles.container}>
+        <img src={logoIcon} alt="Loft taxi" />
+        <div>
+          {headerStructure.map((headerItem, index) => (
+            <Button
+              key={index}
+              href={headerItem.href}
+              className={headerItem.className}
+              onClick={handleClick(headerItem.address)}
+            >
+              {headerItem.text}
+            </Button>
+          ))}
+        </div>
+      </Container>
+    </AppBar>
   );
-};
+});
