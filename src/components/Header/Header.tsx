@@ -1,11 +1,20 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { AppBar, Container, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import logoIcon from './static/logo.png';
 import { ROUTES } from 'utils/routes';
+import { CustomContext, ICustomContext } from 'App';
 
 interface IProps {
   navigateTo: (route: string) => void;
+}
+
+type LinkData = {
+  className: string,
+  text: string,
+  href: string,
+  address: string,
+  isAuthorizedShow: boolean,
 }
 
 const useStyles = makeStyles({
@@ -28,29 +37,35 @@ const headerStructure = [
     text: 'Войти',
     href: '/',
     address: ROUTES.login,
+    isAuthorizedShow: false,
   },
   {
     className: 'header__item',
     text: 'Зарегестрироваться',
     href: '/',
     address: ROUTES.signup,
+    isAuthorizedShow: false,
   },
   {
     className: 'header__item',
     text: 'Карта',
     href: '/',
     address: ROUTES.map,
+    isAuthorizedShow: true,
   },
   {
     className: 'header__item',
     text: 'Профиль',
     href: '/',
     address: ROUTES.profile,
-  },
+    isAuthorizedShow: true
+  }
 ];
 
 export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
   const styles = useStyles();
+
+  const { isLoggedIn, logout }: ICustomContext = useContext(CustomContext);
 
   const handleClick = useCallback(
     route => (e: any) => {
@@ -61,12 +76,16 @@ export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
     [navigateTo],
   );
 
+  const showAvailableLinks = (links: LinkData[], condition: boolean = false) => {
+    return links.filter(linkData => linkData.isAuthorizedShow === condition)
+  }
+
   return (
-    <AppBar className={styles.header} position='static'>
+    <AppBar className={styles.header} position="static">
       <Container className={styles.container}>
         <img src={logoIcon} alt="Loft taxi" />
         <div>
-          {headerStructure.map((headerItem, index) => (
+          {showAvailableLinks(headerStructure, isLoggedIn).map((headerItem, index) => (
             <Button
               key={index}
               href={headerItem.href}
@@ -76,6 +95,7 @@ export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
               {headerItem.text}
             </Button>
           ))}
+          {isLoggedIn && <Button onClick={logout}>Выйти</Button>}
         </div>
       </Container>
     </AppBar>

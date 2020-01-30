@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './SignupPage.scss';
 import { ROUTES } from 'utils/routes';
+import { CustomContext, ICustomContext } from 'App';
 
-interface IProps {
-  setActiveScreen: (activeScreen: string) => void;
-}
-
-export const SignupPage: React.FC<IProps> = ({ setActiveScreen }) => {
+export const SignupPage: React.FC = () => {
   const [userData, setUserData] = useState({
     email: '',
     firstName: '',
     lastName: '',
     password: '',
   });
+
+  const { setActiveScreen }: ICustomContext = useContext(CustomContext);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -23,7 +22,9 @@ export const SignupPage: React.FC<IProps> = ({ setActiveScreen }) => {
   const handleSignup = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    setActiveScreen(ROUTES.map);
+    if (setActiveScreen) {
+      setActiveScreen(ROUTES.map);
+    }
   };
 
   return (

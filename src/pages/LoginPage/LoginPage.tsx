@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { CustomContext, ICustomContext } from 'App';
 import './LoginPage.scss';
 
 export const LoginPage: React.FC = () => {
   const [userData, setUserData] = useState({ username: '', password: '' });
+  const { login }: ICustomContext  = useContext(CustomContext);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -13,7 +15,9 @@ export const LoginPage: React.FC = () => {
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    alert(JSON.stringify(userData, null, 2));
+    if (login) {
+      login(userData.username, userData.password);
+    }
   };
 
   return (
