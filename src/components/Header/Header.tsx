@@ -10,12 +10,12 @@ interface IProps {
 }
 
 type LinkData = {
-  className: string,
-  text: string,
-  href: string,
-  address: string,
-  isAuthorizedShow: boolean,
-}
+  className: string;
+  text: string;
+  href: string;
+  address: string;
+  isAuthorizedShow: boolean;
+};
 
 const useStyles = makeStyles({
   header: {
@@ -58,8 +58,8 @@ const headerStructure = [
     text: 'Профиль',
     href: '/',
     address: ROUTES.profile,
-    isAuthorizedShow: true
-  }
+    isAuthorizedShow: true,
+  },
 ];
 
 export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
@@ -76,25 +76,30 @@ export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
     [navigateTo],
   );
 
-  const showAvailableLinks = (links: LinkData[], condition: boolean = false) => {
-    return links.filter(linkData => linkData.isAuthorizedShow === condition)
-  }
+  const showAvailableLinks = (
+    links: LinkData[],
+    condition: boolean = false,
+  ) => {
+    return links.filter(linkData => linkData.isAuthorizedShow === condition);
+  };
 
   return (
-    <AppBar className={styles.header} position="static">
+    <AppBar className={styles.header} position="static" data-testid="header">
       <Container className={styles.container}>
         <img src={logoIcon} alt="Loft taxi" />
-        <div>
-          {showAvailableLinks(headerStructure, isLoggedIn).map((headerItem, index) => (
-            <Button
-              key={index}
-              href={headerItem.href}
-              className={headerItem.className}
-              onClick={handleClick(headerItem.address)}
-            >
-              {headerItem.text}
-            </Button>
-          ))}
+        <div data-testid="controls">
+          {showAvailableLinks(headerStructure, isLoggedIn).map(
+            (headerItem, index) => (
+              <Button
+                key={index}
+                href={headerItem.href}
+                className={headerItem.className}
+                onClick={handleClick(headerItem.address)}
+              >
+                {headerItem.text}
+              </Button>
+            ),
+          )}
           {isLoggedIn && <Button onClick={logout}>Выйти</Button>}
         </div>
       </Container>

@@ -1,8 +1,8 @@
 import React, { useState, createContext, useMemo, useCallback } from 'react';
 import { Header } from 'components/Header/Header';
+import { ScreenHandler } from 'components/ScreenHandler/ScreenHandler';
 
 import styles from './App.module.css';
-import { ScreenHandler } from 'components/ScreenHandler/ScreenHandler';
 
 export interface ICustomContext {
   activeScreen?: string;

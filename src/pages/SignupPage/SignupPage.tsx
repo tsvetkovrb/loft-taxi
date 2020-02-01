@@ -28,10 +28,10 @@ export const SignupPage: React.FC = () => {
   };
 
   return (
-    <section className="signup-page">
+    <section data-testid="signup-page" className="signup-page">
       <h1>Signup page</h1>
 
-      <form onSubmit={handleSignup}>
+      <form onSubmit={handleSignup} data-testid="signup-page-form">
         <input
           type="text"
           name="email"
