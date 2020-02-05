@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { TextField, Button, makeStyles, Typography } from '@material-ui/core';
 import cn from 'classnames';
 
-import { WithBackground } from 'components/WithBackground/WithBackground';
+import { WithBackground } from 'components/layout/WithBackground/WithBackground';
 import { Form } from 'components/Form/Form';
-import { WithLogo } from 'components/WithLogo/WithLogo';
+import { WithLogo } from 'components/layout/WithLogo/WithLogo';
 
 const useStyles = makeStyles({
   inputsWrapper: {
@@ -44,13 +44,9 @@ export const SignupPage: React.FC = () => {
 
   return (
     <section data-testid="signup-page">
-      <WithBackground>
+      <WithBackground centered={true}>
         <WithLogo>
-          <Form
-            data-testid="signup-page-form"
-            title="Регистрация"
-            onSubmit={() => {}}
-          >
+          <Form data-testid="signup-page-form" title="Регистрация" onSubmit={() => {}}>
             <Typography className={styles.paragraph}>
               Уже зарегистрирован?&nbsp;
               <Link to="/login" className={styles.link}>
@@ -72,12 +68,7 @@ export const SignupPage: React.FC = () => {
                 value={userData.firstName}
                 className={styles.firstNameInput}
               />
-              <TextField
-                label="Фамилия"
-                type="text"
-                name="lastName"
-                value={userData.lastName}
-              />
+              <TextField label="Фамилия" type="text" name="lastName" value={userData.lastName} />
             </div>
             <TextField
               label="Пароль"

@@ -1,18 +1,24 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import { LoginPage } from 'pages/LoginPage/LoginPage';
 import { SignupPage } from 'pages/SignupPage/SignupPage';
 
-import './App.module.scss';
-import { PrivateRoute } from 'components/PrivateRoute/PrivateRoute';
+import { CustomRoute } from 'components/CustomRoute/CustomRoute';
 import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
+
+import './App.module.scss';
+import { MapPage } from 'pages/MapPage/MapPage';
+
+const isAuth = true;
 
 export const App = () => {
   return (
     <Switch>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/signup" component={SignupPage} />
-      <PrivateRoute isAuth={false} component={ProfilePage} path="/profile" to="/login" />
+      <Redirect exact from="/" to="/map" />
+      <CustomRoute path="/map" component={MapPage} to="/login" isAuth={isAuth} />
+      <CustomRoute path="/login" component={LoginPage} to="/profile" isAuth={!isAuth} />
+      <CustomRoute path="/signup" component={SignupPage} to="/profile" isAuth={!isAuth} />
+      <CustomRoute path="/profile" component={ProfilePage} to="/login" isAuth={isAuth} />
     </Switch>
   );
 };

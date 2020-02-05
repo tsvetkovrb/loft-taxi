@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { TextField, Button, Typography, makeStyles } from '@material-ui/core';
 
 import { Form } from 'components/Form/Form';
-import { WithLogo } from 'components/WithLogo/WithLogo';
-import { WithBackground } from 'components/WithBackground/WithBackground';
+import { WithLogo } from 'components/layout/WithLogo/WithLogo';
+import { WithBackground } from 'components/layout/WithBackground/WithBackground';
 
 /**
  * Styles
@@ -44,7 +44,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <section data-testid="login-page">
-      <WithBackground>
+      <WithBackground centered={true}>
         <WithLogo>
           <Form className={styles.form} title="Войти" onSubmit={() => {}}>
             <Typography className={styles.paragraph}>
@@ -53,13 +53,7 @@ export const LoginPage: React.FC = () => {
                 Зарегистрируйтесь
               </Link>
             </Typography>
-            <TextField
-              className={styles.input}
-              type="text"
-              name="username"
-              value={userData.username}
-              label="Имя"
-            />
+            <TextField className={styles.input} type="text" name="username" value={userData.username} label="Имя" />
             <TextField
               className={styles.input}
               type="password"

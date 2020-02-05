@@ -25,11 +25,5 @@ export const MapPage: React.FC = () => {
     });
   });
 
-  return (
-    <section
-      data-testid="map-page"
-      className="map-page"
-      ref={mapContainer}
-    ></section>
-  );
+  return <section data-testid="map-page" className="map-page" ref={mapContainer}></section>;
 };
