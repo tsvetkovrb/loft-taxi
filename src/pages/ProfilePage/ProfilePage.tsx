@@ -1,5 +1,4 @@
 import React from 'react';
-import './ProfilePage.scss';
 
 export const ProfilePage: React.FC = () => {
   return (

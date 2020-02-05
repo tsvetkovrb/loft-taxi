@@ -1,9 +1,8 @@
-import React, { useCallback, useContext } from 'react';
+import React from 'react';
 import { AppBar, Container, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
-import logoIcon from './static/logo.png';
+import logoIcon from 'static/logo.png';
 import { ROUTES } from 'utils/routes';
-import { CustomContext, ICustomContext } from 'App';
 
 interface IProps {
   navigateTo: (route: string) => void;
@@ -65,23 +64,13 @@ const headerStructure = [
 export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
   const styles = useStyles();
 
-  const { isLoggedIn, logout }: ICustomContext = useContext(CustomContext);
-
-  const handleClick = useCallback(
-    route => (e: any) => {
-      e.preventDefault();
-
-      navigateTo(route);
-    },
-    [navigateTo],
-  );
-
   const showAvailableLinks = (
     links: LinkData[],
     condition: boolean = false,
   ) => {
     return links.filter(linkData => linkData.isAuthorizedShow === condition);
   };
+  const isLoggedIn = false;
 
   return (
     <AppBar className={styles.header} position="static" data-testid="header">
@@ -94,13 +83,12 @@ export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
                 key={index}
                 href={headerItem.href}
                 className={headerItem.className}
-                onClick={handleClick(headerItem.address)}
               >
                 {headerItem.text}
               </Button>
             ),
           )}
-          {isLoggedIn && <Button onClick={logout}>Выйти</Button>}
+          {isLoggedIn && <Button> Выйти</Button>}
         </div>
       </Container>
     </AppBar>
