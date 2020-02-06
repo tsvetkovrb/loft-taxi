@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles, Button } from '@material-ui/core';
 import { WithBackground } from 'components/layout/WithBackground/WithBackground';
-import { Header } from 'components/Header/Header';
 import { CardWrapper } from 'components/layout/CardWrapper/CardWrapper';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'store';
 
 const useStyles = makeStyles({
   content: {
@@ -12,7 +13,7 @@ const useStyles = makeStyles({
     padding: '60px 75px 70px',
     boxSizing: 'border-box',
     backgroundColor: '#fff',
-    marginTop: '80px',
+    marginTop: '160px',
   },
   typography: {
     textAlign: 'center',
@@ -41,10 +42,11 @@ const useStyles = makeStyles({
 
 export const ProfilePage: React.FC = () => {
   const styles = useStyles();
+  const logTest = useSelector(state => state.authReducer.isLoggedIn);
+  const logDispatch = useDispatch();
 
   return (
     <section data-testid="profile-page">
-      <Header />
       <WithBackground>
         <div className={styles.content}>
           <div className={styles.typography}>
@@ -52,15 +54,17 @@ export const ProfilePage: React.FC = () => {
             <span className={styles.subtitle}>Способ оплаты</span>
           </div>
 
-          <div className={styles.cardsWrapper}>
-            <CardWrapper>
-              <span></span>
-            </CardWrapper>
-            <CardWrapper>
-              <span></span>
-            </CardWrapper>
-          </div>
-          <Button color="primary" variant="contained">
+          {logTest && (
+            <div className={styles.cardsWrapper}>
+              <CardWrapper>
+                <span></span>
+              </CardWrapper>
+              <CardWrapper>
+                <span></span>
+              </CardWrapper>
+            </div>
+          )}
+          <Button color="primary" variant="contained" onClick={() => logDispatch({ type: 'TEST' })}>
             Сохранить
           </Button>
         </div>

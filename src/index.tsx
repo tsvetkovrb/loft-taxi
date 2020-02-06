@@ -5,12 +5,17 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from 'utils/theme';
 
 import { App } from './App';
+import { Provider } from 'react-redux';
+
+import { store } from 'store/store';
 
 ReactDOM.render(
-  <BrowserRouter>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root'),
 );

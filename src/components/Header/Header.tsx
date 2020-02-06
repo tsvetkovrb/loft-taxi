@@ -25,7 +25,7 @@ export const Header = React.memo(() => {
   const styles = useStyles();
 
   return (
-    <AppBar className={styles.header} position="static" data-testid="header">
+    <AppBar className={styles.header} position="fixed" data-testid="header">
       <Container className={styles.container}>
         <img src={LogoIcon} alt="Loft taxi" />
         <div data-testid="controls">
