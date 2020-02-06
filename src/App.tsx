@@ -1,28 +1,30 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
+
 import { LoginPage } from 'pages/LoginPage/LoginPage';
 import { SignupPage } from 'pages/SignupPage/SignupPage';
+import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
+import { MapPage } from 'pages/MapPage/MapPage';
 
 import { CustomRoute } from 'components/CustomRoute/CustomRoute';
-import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
-
-import { MapPage } from 'pages/MapPage/MapPage';
-import { Header } from 'components/Header/Header';
+import { HeaderContainer } from 'containers/HeaderContainer';
 
 import './App.module.scss';
 
-const isAuth = true;
+interface IAppProps {
+  isAuth: boolean;
+}
 
-export const App = () => {
+export const App: React.FC<IAppProps> = props => {
   return (
     <>
-      <Header />
+      <HeaderContainer />
       <Switch>
         <Redirect exact from="/" to="/map" />
-        <CustomRoute path="/map" component={MapPage} to="/login" isAuth={isAuth} />
-        <CustomRoute path="/profile" component={ProfilePage} to="/login" isAuth={isAuth} />
-        <CustomRoute path="/login" component={LoginPage} to="/profile" isAuth={!isAuth} />
-        <CustomRoute path="/signup" component={SignupPage} to="/profile" isAuth={!isAuth} />
+        <CustomRoute path="/map" to="/login" isAuth={props.isAuth} component={MapPage} />
+        <CustomRoute path="/profile" to="/login" isAuth={props.isAuth} component={ProfilePage} />
+        <CustomRoute path="/login" to="/profile" isAuth={!props.isAuth} component={LoginPage} />
+        <CustomRoute path="/signup" to="/profile" isAuth={!props.isAuth} component={SignupPage} />
       </Switch>
     </>
   );
