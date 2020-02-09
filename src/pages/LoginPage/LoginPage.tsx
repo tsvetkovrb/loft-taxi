@@ -39,7 +39,7 @@ const useStyles = makeStyles({
 
 export const LoginPage: React.FC = () => {
   const [userData, setUserData] = useState({ username: '', password: '' });
-  const handleLogin = useDispatch();
+  const dispatch = useDispatch();
   const isFetching = useSelector(state => state.authReducer.isFetching);
 
   const styles = useStyles();
@@ -52,7 +52,7 @@ export const LoginPage: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    handleLogin(loginAction(userData.username, userData.password));
+    dispatch(loginAction(userData.username, userData.password));
   };
 
   return (

@@ -1,4 +1,7 @@
 import * as T from 'store/actionTypes';
+import { Dispatch } from 'redux';
+import { AxiosInstance } from 'axios';
+import { RootState } from 'store/store';
 
 export const loginActionStart = () => ({
   type: T.FETCH_LOGIN_USER_START,
@@ -18,9 +21,9 @@ export const logoutAction = () => ({
 });
 
 export const loginAction = (email: string, password: string) => async (
-  dispatch: any,
-  api: any,
-  getStore: any,
+  dispatch: Dispatch,
+  api: AxiosInstance,
+  getStore: () => RootState,
 ) => {
   dispatch(loginActionStart());
   try {
@@ -30,9 +33,12 @@ export const loginAction = (email: string, password: string) => async (
     });
     const { data } = response;
     const { success, token } = data;
+
     if (success) {
       dispatch(loginActionSuccess(token));
-      localStorage.setItem('store', JSON.stringify(getStore()));
+      const store = JSON.stringify(getStore());
+
+      localStorage.setItem('store', store);
     }
   } catch (error) {
     console.log(error);

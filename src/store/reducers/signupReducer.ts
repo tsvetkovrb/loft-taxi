@@ -4,7 +4,7 @@ const initialState = {
   isSending: false,
 };
 
-export const signuptReducer = (state = initialState, action: any) => {
+export const signupReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case T.SIGNUP_USER_START:
       return {

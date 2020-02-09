@@ -1,6 +1,7 @@
 import React from 'react';
 import { TextField, makeStyles } from '@material-ui/core';
 import mcLogo from 'static/logo_mc.png';
+import { ICardProps } from 'pages/ProfilePage/ProfilePage';
 
 const useStyles = makeStyles({
   frontSide: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const FrontSideCard = () => {
+export const FrontSideCard: React.FC<ICardProps> = props => {
   const styles = useStyles();
 
   return (
@@ -38,9 +39,15 @@ export const FrontSideCard = () => {
           shrink: true,
         }}
         className={styles.cardNumber}
+        onChange={props.handleInputChange}
       />
 
-      <TextField placeholder="02/01" className={styles.dateField} />
+      <TextField
+        placeholder="02/01"
+        className={styles.dateField}
+        name="expiryDate"
+        onChange={props.handleInputChange}
+      />
     </div>
   );
 };

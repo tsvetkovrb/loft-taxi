@@ -1,6 +1,8 @@
 import React from 'react';
 import { TextField, makeStyles } from '@material-ui/core';
 
+import { ICardProps } from 'pages/ProfilePage/ProfilePage';
+
 const useStyles = makeStyles({
   backSide: {
     display: 'flex',
@@ -17,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const BackSideCard = () => {
+export const BackSideCard: React.FC<ICardProps> = props => {
   const styles = useStyles();
 
   return (
@@ -30,6 +32,7 @@ export const BackSideCard = () => {
         }}
         className={styles.userName}
         name="cardName"
+        onChange={props.handleInputChange}
       />
       <TextField
         placeholder="***"
@@ -40,6 +43,7 @@ export const BackSideCard = () => {
         }}
         className={styles.cvcCode}
         name="cvc"
+        onChange={props.handleInputChange}
       />
     </div>
   );

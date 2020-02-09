@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { makeStyles, Button } from '@material-ui/core';
 import { WithBackground } from 'components/layout/WithBackground/WithBackground';
 import { CardWrapper } from 'components/layout/CardWrapper/CardWrapper';
 import { FrontSideCard } from 'components/Card/FrontSideCard';
 import { BackSideCard } from 'components/Card/BackSideCard';
+import { useDispatch } from 'react-redux';
+import { sendingProfileData } from 'store/actions/profileActions';
+import { useSelector } from 'store';
 
 const useStyles = makeStyles({
   content: {
@@ -40,8 +43,37 @@ const useStyles = makeStyles({
   },
 });
 
+export interface ICardProps {
+  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+}
+
 export const ProfilePage: React.FC = () => {
   const styles = useStyles();
+  const [cardData, setCardData] = useState({
+    cardNumber: '',
+    expiryDate: '',
+    cardName: '',
+    cvc: '',
+  });
+
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.authReducer.token);
+  const isSending = useSelector(state => state.profileReducer.isSending);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+
+    setCardData({ ...cardData, [name]: value });
+  };
+
+  const sendCardData = () => {
+    dispatch(
+      sendingProfileData({
+        ...cardData,
+        token,
+      }),
+    );
+  };
 
   return (
     <section data-testid="profile-page">
@@ -54,14 +86,14 @@ export const ProfilePage: React.FC = () => {
 
           <div className={styles.cardsWrapper}>
             <CardWrapper>
-              <FrontSideCard />
+              <FrontSideCard handleInputChange={handleInputChange} />
             </CardWrapper>
             <CardWrapper>
-              <BackSideCard />
+              <BackSideCard handleInputChange={handleInputChange} />
             </CardWrapper>
           </div>
-          <Button color="primary" variant="contained">
-            Сохранить
+          <Button color="primary" variant="contained" onClick={sendCardData}>
+            {isSending ? 'В процессе...' : 'Сохранить'}
           </Button>
         </div>
       </WithBackground>

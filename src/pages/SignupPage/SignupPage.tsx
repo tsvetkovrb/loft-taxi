@@ -8,6 +8,7 @@ import { Form } from 'components/Form/Form';
 import { WithLogo } from 'components/layout/WithLogo/WithLogo';
 import { useDispatch } from 'react-redux';
 import { signupAction } from 'store/actions/signupActions';
+import { useSelector } from 'store';
 
 const useStyles = makeStyles({
   inputsWrapper: {
@@ -38,7 +39,8 @@ export const SignupPage: React.FC<ISignupPage> = props => {
     surname: '',
     password: '',
   });
-  const signup = useDispatch();
+  const dispatch = useDispatch();
+  const isSending = useSelector(state => state.signupReducer.isSending);
 
   const styles = useStyles();
 
@@ -55,7 +57,8 @@ export const SignupPage: React.FC<ISignupPage> = props => {
   };
 
   const handleSignup = () => {
-    signup(signupAction(userData, props.history.push));
+    const redirectTo = props.history.push;
+    dispatch(signupAction(userData, redirectTo));
   };
 
   return (
@@ -103,7 +106,7 @@ export const SignupPage: React.FC<ISignupPage> = props => {
               className={styles.margin}
             />
             <Button type="submit" variant="contained" color="primary">
-              Зарегистрироваться
+              {isSending ? 'В процессе...' : 'Зарегистрироваться'}
             </Button>
           </Form>
         </WithLogo>
