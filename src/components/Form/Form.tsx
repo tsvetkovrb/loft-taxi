@@ -28,8 +28,13 @@ const useStyles = makeStyles({
 export const Form: React.FC<IFormProps> = props => {
   const styles = useStyles();
 
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    props.onSubmit();
+  };
+
   return (
-    <form className={styles.formWrapper} onSubmit={props.onSubmit}>
+    <form className={styles.formWrapper} onSubmit={onSubmit}>
       <h2 className={styles.formTitle}>{props.title}</h2>
       {props.children}
     </form>

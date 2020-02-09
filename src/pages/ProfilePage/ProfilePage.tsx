@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles, Button } from '@material-ui/core';
 import { WithBackground } from 'components/layout/WithBackground/WithBackground';
 import { CardWrapper } from 'components/layout/CardWrapper/CardWrapper';
+import { FrontSideCard } from 'components/Card/FrontSideCard';
+import { BackSideCard } from 'components/Card/BackSideCard';
 
 const useStyles = makeStyles({
   content: {
@@ -52,10 +54,10 @@ export const ProfilePage: React.FC = () => {
 
           <div className={styles.cardsWrapper}>
             <CardWrapper>
-              <span></span>
+              <FrontSideCard />
             </CardWrapper>
             <CardWrapper>
-              <span></span>
+              <BackSideCard />
             </CardWrapper>
           </div>
           <Button color="primary" variant="contained">

@@ -25,7 +25,6 @@ const useStyles = makeStyles({
 interface IHeaderProps {
   isAuth: boolean;
   doLogout?: any;
-  doLogin?: any;
 }
 
 export const Header = React.memo((props: IHeaderProps) => {
@@ -45,9 +44,9 @@ export const Header = React.memo((props: IHeaderProps) => {
 
   const renderUnAuthedControls = () => (
     <>
-      {/* <Link to="/login" className={styles.link}> */}
-      <Button onClick={props.doLogin}>Войти</Button>
-      {/* </Link> */}
+      <Link to="/login" className={styles.link}>
+        <Button>Войти</Button>
+      </Link>
       <Link to="/signup" className={styles.link}>
         <Button>Зарегестрироваться</Button>
       </Link>

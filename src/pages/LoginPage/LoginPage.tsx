@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { TextField, Button, Typography, makeStyles } from '@material-ui/core';
 
 import { Form } from 'components/Form/Form';
 import { WithLogo } from 'components/layout/WithLogo/WithLogo';
 import { WithBackground } from 'components/layout/WithBackground/WithBackground';
-
-/**
- * Styles
- */
+import { loginAction } from 'store/actions/authActinos';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'store';
 
 const useStyles = makeStyles({
   form: {
@@ -32,34 +31,56 @@ const useStyles = makeStyles({
     height: '40px',
     marginLeft: 'auto',
   },
+  progress: {
+    height: '20px',
+    width: '20px',
+  },
 });
 
-/**
- * View
- */
-
 export const LoginPage: React.FC = () => {
-  const [userData] = useState({ username: '', password: '' });
+  const [userData, setUserData] = useState({ username: '', password: '' });
+  const handleLogin = useDispatch();
+  const isFetching = useSelector(state => state.authReducer.isFetching);
+
   const styles = useStyles();
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const name = e.currentTarget.name;
+    const value = e.currentTarget.value;
+
+    setUserData({ ...userData, [name]: value });
+  };
+
+  const handleSubmit = () => {
+    handleLogin(loginAction(userData.username, userData.password));
+  };
 
   return (
     <section data-testid="login-page">
       <WithBackground centered={true}>
         <WithLogo>
-          <Form className={styles.form} title="Войти" onSubmit={() => {}}>
+          <Form className={styles.form} title="Войти" onSubmit={handleSubmit}>
             <Typography className={styles.paragraph}>
               Новый пользователь?{' '}
               <Link to="/signup" className={styles.link}>
                 Зарегистрируйтесь
               </Link>
             </Typography>
-            <TextField className={styles.input} type="text" name="username" value={userData.username} label="Имя" />
+            <TextField
+              className={styles.input}
+              type="text"
+              name="username"
+              value={userData.username}
+              label="Имя"
+              onChange={handleInputChange}
+            />
             <TextField
               className={styles.input}
               type="password"
               name="password"
               label="Пароль"
               value={userData.password}
+              onChange={handleInputChange}
             />
             <Button
               className={styles.loginButton}
@@ -68,7 +89,7 @@ export const LoginPage: React.FC = () => {
               data-testid="login-page-submit"
               type="submit"
             >
-              Войти
+              {isFetching ? 'В процессе...' : 'Войти'}
             </Button>
           </Form>
         </WithLogo>

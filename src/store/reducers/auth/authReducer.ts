@@ -1,23 +1,30 @@
-import { Action } from 'redux';
 import * as T from 'store/actionTypes';
 
 const initialState = {
   isAuth: false,
+  isFetching: false,
+  token: '',
 };
 
-export const authReducer = (state = initialState, action: Action) => {
+export const authReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case T.LOGIN_USER:
+    case T.FETCH_LOGIN_USER_START:
       return {
         ...state,
-        isAuth: true,
+        isFetching: true,
       };
-
+    case T.FETCH_LOGIN_USER_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        isAuth: true,
+        token: action.payload,
+      };
     case T.LOGOUT_USER:
       return {
-        ...state,
-        isAuth: false,
+        ...initialState,
       };
+
     default:
       return state;
   }
