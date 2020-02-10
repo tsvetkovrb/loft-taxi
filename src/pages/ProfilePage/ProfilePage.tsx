@@ -1,12 +1,14 @@
 import React, { useState, ChangeEvent } from 'react';
+import { useDispatch } from 'react-redux';
 import { makeStyles, Button } from '@material-ui/core';
+
 import { WithBackground } from 'components/layout/WithBackground/WithBackground';
 import { CardWrapper } from 'components/layout/CardWrapper/CardWrapper';
 import { FrontSideCard } from 'components/Card/FrontSideCard';
 import { BackSideCard } from 'components/Card/BackSideCard';
-import { useDispatch } from 'react-redux';
-import { sendingProfileData } from 'store/actions/profileActions';
+
 import { useSelector } from 'store';
+import { sendingProfileData } from 'store/actions/profileActions';
 
 const useStyles = makeStyles({
   content: {

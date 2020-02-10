@@ -6,6 +6,10 @@ interface ICustomRoute extends RouteProps {
   to: string;
 }
 
-export const CustomRoute: React.FC<ICustomRoute> = (props): any => {
-  return props.isAuth ? <Route component={props.component} {...props} /> : <Redirect to={props.to} />;
+export const CustomRoute: React.FC<ICustomRoute> = props => {
+  return props.isAuth ? (
+    <Route component={props.component} {...props} />
+  ) : (
+    <Redirect to={props.to} />
+  );
 };

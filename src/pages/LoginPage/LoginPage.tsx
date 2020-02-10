@@ -1,13 +1,14 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { TextField, Button, Typography, makeStyles } from '@material-ui/core';
 
 import { Form } from 'components/Form/Form';
 import { WithLogo } from 'components/layout/WithLogo/WithLogo';
 import { WithBackground } from 'components/layout/WithBackground/WithBackground';
-import { loginAction } from 'store/actions/authActinos';
-import { useDispatch } from 'react-redux';
+
 import { useSelector } from 'store';
+import { loginAction } from 'store/actions/authActinos';
 
 const useStyles = makeStyles({
   form: {
@@ -45,8 +46,7 @@ export const LoginPage: React.FC = () => {
   const styles = useStyles();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.currentTarget.name;
-    const value = e.currentTarget.value;
+    const { name, value } = e.currentTarget;
 
     setUserData({ ...userData, [name]: value });
   };

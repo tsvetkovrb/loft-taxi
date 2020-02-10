@@ -1,12 +1,13 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { TextField, Button, makeStyles, Typography } from '@material-ui/core';
+import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 
 import { WithBackground } from 'components/layout/WithBackground/WithBackground';
 import { Form } from 'components/Form/Form';
 import { WithLogo } from 'components/layout/WithLogo/WithLogo';
-import { useDispatch } from 'react-redux';
+
 import { signupAction } from 'store/actions/signupActions';
 import { useSelector } from 'store';
 
@@ -50,14 +51,14 @@ export const SignupPage: React.FC<ISignupPage> = props => {
   });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.currentTarget.name;
-    const value = e.currentTarget.value;
+    const { name, value } = e.currentTarget;
 
     setUserData({ ...userData, [name]: value });
   };
 
   const handleSignup = () => {
     const redirectTo = props.history.push;
+
     dispatch(signupAction(userData, redirectTo));
   };
 

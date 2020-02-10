@@ -10,12 +10,12 @@ import { store } from 'store/store';
 import { AppContainer as App } from 'containers/AppContainer';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </ThemeProvider>
-  </Provider>,
+    </Provider>
+  </ThemeProvider>,
   document.getElementById('root'),
 );

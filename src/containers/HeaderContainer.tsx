@@ -10,8 +10,9 @@ import { Header } from 'components/Header/Header';
 const unvisiblePaths = ['/signup', '/login'];
 
 const HeaderWrapper = (props: RouteComponentProps) => {
-  const isAuth = useSelector(state => state.authReducer.isAuth);
   const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.authReducer.isAuth);
+  const currentPath = props.location.pathname;
 
   const doLogout = () => {
     try {
@@ -22,7 +23,7 @@ const HeaderWrapper = (props: RouteComponentProps) => {
     }
   };
 
-  if (unvisiblePaths.includes(props.location.pathname)) {
+  if (unvisiblePaths.includes(currentPath)) {
     return null;
   }
 
