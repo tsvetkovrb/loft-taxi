@@ -26,5 +26,9 @@ interface IWithBackgroundProps {
 export const WithBackground: React.FC<IWithBackgroundProps> = props => {
   const styles = useStyles(props);
 
-  return <div className={styles.withBackground}>{props.children}</div>;
+  return (
+    <div className={styles.withBackground} data-testid="with-background">
+      {props.children}
+    </div>
+  );
 };

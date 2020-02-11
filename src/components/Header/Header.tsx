@@ -54,8 +54,8 @@ export const Header = React.memo((props: IHeaderProps) => {
   );
 
   return (
-    <AppBar className={styles.header} position="fixed" data-testid="header">
-      <Container className={styles.container}>
+    <AppBar className={styles.header} position="fixed">
+      <Container className={styles.container} data-testid="header">
         <img src={LogoIcon} alt="Loft taxi" />
         <div data-testid="controls">
           {props.isAuth ? renderAuthedControls() : renderUnAuthedControls()}

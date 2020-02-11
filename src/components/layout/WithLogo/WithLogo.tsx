@@ -23,7 +23,7 @@ export const WithLogo: React.FC<IWithLogoProps> = props => {
   const styles = useStyles();
 
   return (
-    <div className={styles.withLogo}>
+    <div className={styles.withLogo} data-testid="with-logo">
       <img src={Logo} alt="Logo" className={styles.logo} />
 
       {props.children}

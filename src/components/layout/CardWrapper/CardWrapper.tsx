@@ -20,5 +20,9 @@ interface ICardWrapper {
 export const CardWrapper: React.FC<ICardWrapper> = props => {
   const styles = useStyles();
 
-  return <div className={styles.card}>{props.children}</div>;
+  return (
+    <div className={styles.card} data-testid="card-wrapper">
+      {props.children}
+    </div>
+  );
 };

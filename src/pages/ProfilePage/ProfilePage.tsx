@@ -2,10 +2,10 @@ import React, { useState, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles, Button } from '@material-ui/core';
 
-import { WithBackground } from 'components/layout/WithBackground/WithBackground';
-import { CardWrapper } from 'components/layout/CardWrapper/CardWrapper';
-import { FrontSideCard } from 'components/Card/FrontSideCard';
-import { BackSideCard } from 'components/Card/BackSideCard';
+import { WithBackground } from 'components/layout/WithBackground';
+import { CardWrapper } from 'components/layout/CardWrapper';
+import { FrontSideCard } from 'components/Card';
+import { BackSideCard } from 'components/Card';
 
 import { useSelector } from 'store';
 import { sendingProfileData } from 'store/actions/profileActions';

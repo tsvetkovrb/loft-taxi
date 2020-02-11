@@ -23,7 +23,7 @@ export const BackSideCard: React.FC<ICardProps> = props => {
   const styles = useStyles();
 
   return (
-    <div className={styles.backSide}>
+    <div className={styles.backSide} data-testid="back-side">
       <TextField
         placeholder="USER NAME"
         label="Имя владельца:"

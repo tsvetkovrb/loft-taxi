@@ -29,7 +29,7 @@ export const FrontSideCard: React.FC<ICardProps> = props => {
   const styles = useStyles();
 
   return (
-    <div className={styles.frontSide}>
+    <div className={styles.frontSide} data-testid="front-side">
       <img src={mcLogo} alt="Master Card" className={styles.mcLogo} />
       <TextField
         placeholder="0000 0000 0000 0000"

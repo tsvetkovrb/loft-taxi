@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import { LoginPage } from 'pages/LoginPage/LoginPage';
-import { SignupPage } from 'pages/SignupPage/SignupPage';
-import { ProfilePage } from 'pages/ProfilePage/ProfilePage';
-import { MapPage } from 'pages/MapPage/MapPage';
+import { LoginPage } from 'pages/LoginPage';
+import { SignupPage } from 'pages/SignupPage';
+import { ProfilePage } from 'pages/ProfilePage';
+import { MapPage } from 'pages/MapPage';
 
-import { CustomRoute } from 'components/CustomRoute/CustomRoute';
+import { CustomRoute } from 'components/CustomRoute';
 import { HeaderContainer } from 'containers/HeaderContainer';
 
 import './App.module.scss';

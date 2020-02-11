@@ -34,7 +34,7 @@ export const Form: React.FC<IFormProps> = props => {
   };
 
   return (
-    <form className={styles.formWrapper} onSubmit={onSubmit}>
+    <form className={styles.formWrapper} onSubmit={onSubmit} data-testid="form">
       <h2 className={styles.formTitle}>{props.title}</h2>
       {props.children}
     </form>

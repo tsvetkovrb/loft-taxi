@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Typography, makeStyles } from '@material-ui/core';
 
-import { Form } from 'components/Form/Form';
-import { WithLogo } from 'components/layout/WithLogo/WithLogo';
-import { WithBackground } from 'components/layout/WithBackground/WithBackground';
+import { Form } from 'components/Form';
+import { WithLogo } from 'components/layout/WithLogo';
+import { WithBackground } from 'components/layout/WithBackground';
 
 import { useSelector } from 'store';
 import { loginAction } from 'store/actions/authActinos';

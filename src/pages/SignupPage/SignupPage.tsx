@@ -1,12 +1,12 @@
 import React, { useState, ChangeEvent } from 'react';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { TextField, Button, makeStyles, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 
-import { WithBackground } from 'components/layout/WithBackground/WithBackground';
-import { Form } from 'components/Form/Form';
-import { WithLogo } from 'components/layout/WithLogo/WithLogo';
+import { WithBackground } from 'components/layout/WithBackground';
+import { Form } from 'components/Form';
+import { WithLogo } from 'components/layout/WithLogo';
 
 import { signupAction } from 'store/actions/signupActions';
 import { useSelector } from 'store';
@@ -31,9 +31,7 @@ const useStyles = makeStyles({
   },
 });
 
-interface ISignupPage extends RouteComponentProps {}
-
-export const SignupPage: React.FC<ISignupPage> = props => {
+export const SignupPage = () => {
   const [userData, setUserData] = useState({
     email: '',
     name: '',
@@ -57,9 +55,7 @@ export const SignupPage: React.FC<ISignupPage> = props => {
   };
 
   const handleSignup = () => {
-    const redirectTo = props.history.push;
-
-    dispatch(signupAction(userData, redirectTo));
+    dispatch(signupAction(userData));
   };
 
   return (

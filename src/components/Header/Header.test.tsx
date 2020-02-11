@@ -1,44 +1,48 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { Header } from './Header';
-import { CustomContext } from 'App';
+import { Router } from 'react-router-dom';
+import { history } from 'utils/history';
 
-test('should header', () => {
-  const props = {
-    navigateTo: () => {},
-  };
-  const { getByTestId } = render(<Header {...props} />);
+describe('Header', () => {
+  test('Происходит render компонента', () => {
+    const { getByTestId } = render(
+      <Router history={history}>
+        <Header isAuth={false} />
+      </Router>,
+    );
 
-  expect(getByTestId('header')).toBeTruthy();
-});
+    expect(getByTestId('header')).toBeTruthy();
+  });
 
-test('should header 2', () => {
-  const props = {
-    navigateTo: () => {},
-  };
-  const { getByTestId } = render(<Header {...props} />);
+  test('Header имеет блок навигации', () => {
+    const { getByTestId } = render(
+      <Router history={history}>
+        <Header isAuth={false} />
+      </Router>,
+    );
 
-  expect(getByTestId('controls').children).toHaveLength(2);
-  expect(getByTestId('controls').firstChild?.textContent).toEqual('Войти');
-  expect(getByTestId('controls').lastChild?.textContent).toEqual(
-    'Зарегестрироваться',
-  );
-});
+    expect(getByTestId('header').children).toHaveLength(2);
+    expect(getByTestId('controls')).toBeTruthy();
+  });
 
-test('should header 3', () => {
-  const props = {
-    navigateTo: () => {},
-  };
-  const HeaderWithContext = () => (
-    <CustomContext.Provider value={{ isLoggedIn: true }}>
-      <Header {...props} />
-    </CustomContext.Provider>
-  );
-  const { getByTestId } = render(<HeaderWithContext />);
+  test('2 нопки, если незалогинен', () => {
+    const { getByTestId } = render(
+      <Router history={history}>
+        <Header isAuth={false} />
+      </Router>,
+    );
 
-  expect(getByTestId('controls').children).toHaveLength(3);
+    expect(getByTestId('controls').children).toHaveLength(2);
+  });
 
-  expect(getByTestId('controls').firstChild?.textContent).toEqual('Карта');
-  expect(getByTestId('controls').children[1]?.textContent).toEqual('Профиль');
-  expect(getByTestId('controls').lastChild?.textContent).toEqual('Выйти');
+  test('3 нопки, если залогинен', () => {
+    const { getByTestId } = render(
+      <Router history={history}>
+        <Header isAuth={true} />
+      </Router>,
+    );
+
+    expect(getByTestId('controls').children).toHaveLength(3);
+  });
 });
