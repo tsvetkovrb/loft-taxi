@@ -92,7 +92,12 @@ export const ProfilePage: React.FC<IProfilePageProps> = props => {
               <BackSideCard handleInputChange={handleInputChange} />
             </CardWrapper>
           </div>
-          <Button color="primary" variant="contained" onClick={sendCardData}>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={sendCardData}
+            data-testid="profile-page-button"
+          >
             {props.isSending ? 'В процессе...' : 'Сохранить'}
           </Button>
         </div>
