@@ -5,6 +5,7 @@ import MainBg from 'static/main_bg.png';
 const useStyles = makeStyles(() => ({
   withBackground: (props: IWithBackgroundProps) => ({
     height: '100vh',
+    minHeight: '900px',
     width: '100%',
     display: 'flex',
     justifyContent: props.centered ? 'center' : 'flex-start',
