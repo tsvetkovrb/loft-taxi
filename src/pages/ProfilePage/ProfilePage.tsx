@@ -1,5 +1,4 @@
 import React, { useState, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
 import { makeStyles, Button } from '@material-ui/core';
 
 import { WithBackground } from 'components/layout/WithBackground';
@@ -7,8 +6,7 @@ import { CardWrapper } from 'components/layout/CardWrapper';
 import { FrontSideCard } from 'components/Card';
 import { BackSideCard } from 'components/Card';
 
-import { useSelector } from 'store';
-import { sendingProfileData } from 'store/actions/profileActions';
+import { IPayloadProfileData } from 'store/actions/profileActions';
 
 const useStyles = makeStyles({
   content: {
@@ -49,7 +47,13 @@ export interface ICardProps {
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const ProfilePage: React.FC = () => {
+interface IProfilePageProps {
+  token: string;
+  isSending: boolean;
+  sendCardData: (data: IPayloadProfileData) => void;
+}
+
+export const ProfilePage: React.FC<IProfilePageProps> = props => {
   const styles = useStyles();
   const [cardData, setCardData] = useState({
     cardNumber: '',
@@ -58,10 +62,6 @@ export const ProfilePage: React.FC = () => {
     cvc: '',
   });
 
-  const dispatch = useDispatch();
-  const token = useSelector(state => state.authReducer.token);
-  const isSending = useSelector(state => state.profileReducer.isSending);
-
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
 
@@ -69,12 +69,10 @@ export const ProfilePage: React.FC = () => {
   };
 
   const sendCardData = () => {
-    dispatch(
-      sendingProfileData({
-        ...cardData,
-        token,
-      }),
-    );
+    props.sendCardData({
+      ...cardData,
+      token: props.token,
+    });
   };
 
   return (
@@ -95,7 +93,7 @@ export const ProfilePage: React.FC = () => {
             </CardWrapper>
           </div>
           <Button color="primary" variant="contained" onClick={sendCardData}>
-            {isSending ? 'В процессе...' : 'Сохранить'}
+            {props.isSending ? 'В процессе...' : 'Сохранить'}
           </Button>
         </div>
       </WithBackground>

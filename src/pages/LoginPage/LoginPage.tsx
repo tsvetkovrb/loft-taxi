@@ -1,14 +1,10 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { TextField, Button, Typography, makeStyles } from '@material-ui/core';
 
 import { Form } from 'components/Form';
 import { WithLogo } from 'components/layout/WithLogo';
 import { WithBackground } from 'components/layout/WithBackground';
-
-import { useSelector } from 'store';
-import { loginAction } from 'store/actions/authActinos';
 
 const useStyles = makeStyles({
   form: {
@@ -38,11 +34,13 @@ const useStyles = makeStyles({
   },
 });
 
-export const LoginPage: React.FC = () => {
-  const [userData, setUserData] = useState({ username: '', password: '' });
-  const dispatch = useDispatch();
-  const isFetching = useSelector(state => state.authReducer.isFetching);
+interface ILoginPageProps {
+  isFetching: boolean;
+  handleLogin: (email: string, password: string) => void;
+}
 
+export const LoginPage: React.FC<ILoginPageProps> = props => {
+  const [userData, setUserData] = useState({ username: '', password: '' });
   const styles = useStyles();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,7 +50,7 @@ export const LoginPage: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(loginAction(userData.username, userData.password));
+    props.handleLogin(userData.username, userData.password);
   };
 
   return (
@@ -72,6 +70,7 @@ export const LoginPage: React.FC = () => {
               name="username"
               value={userData.username}
               label="Имя"
+              placeholder="Имя"
               onChange={handleInputChange}
             />
             <TextField
@@ -79,6 +78,7 @@ export const LoginPage: React.FC = () => {
               type="password"
               name="password"
               label="Пароль"
+              placeholder="Пароль"
               value={userData.password}
               onChange={handleInputChange}
             />
@@ -89,7 +89,7 @@ export const LoginPage: React.FC = () => {
               data-testid="login-page-submit"
               type="submit"
             >
-              {isFetching ? 'В процессе...' : 'Войти'}
+              {props.isFetching ? 'В процессе...' : 'Войти'}
             </Button>
           </Form>
         </WithLogo>

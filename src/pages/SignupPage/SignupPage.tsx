@@ -1,15 +1,11 @@
 import React, { useState, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { TextField, Button, makeStyles, Typography } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 
 import { WithBackground } from 'components/layout/WithBackground';
 import { Form } from 'components/Form';
 import { WithLogo } from 'components/layout/WithLogo';
-
-import { signupAction } from 'store/actions/signupActions';
-import { useSelector } from 'store';
 
 const useStyles = makeStyles({
   inputsWrapper: {
@@ -31,15 +27,25 @@ const useStyles = makeStyles({
   },
 });
 
-export const SignupPage = () => {
+export type TUserData = {
+  email: string;
+  name: string;
+  surname: string;
+  password: string;
+};
+
+interface ISignupPageProps {
+  handleSignup: (data: TUserData) => void;
+  isSending: boolean;
+}
+
+export const SignupPage: React.FC<ISignupPageProps> = props => {
   const [userData, setUserData] = useState({
     email: '',
     name: '',
     surname: '',
     password: '',
   });
-  const dispatch = useDispatch();
-  const isSending = useSelector(state => state.signupReducer.isSending);
 
   const styles = useStyles();
 
@@ -55,14 +61,14 @@ export const SignupPage = () => {
   };
 
   const handleSignup = () => {
-    dispatch(signupAction(userData));
+    props.handleSignup(userData);
   };
 
   return (
     <section data-testid="signup-page">
       <WithBackground centered={true}>
         <WithLogo>
-          <Form data-testid="signup-page-form" title="Регистрация" onSubmit={handleSignup}>
+          <Form title="Регистрация" onSubmit={handleSignup}>
             <Typography className={styles.paragraph}>
               Уже зарегистрирован?&nbsp;
               <Link to="/login" className={styles.link}>
@@ -72,6 +78,7 @@ export const SignupPage = () => {
             <TextField
               onChange={handleInputChange}
               label="Адрес электронной почты"
+              placeholder="Адрес электронной почты"
               type="text"
               name="email"
               value={userData.email}
@@ -81,6 +88,7 @@ export const SignupPage = () => {
               <TextField
                 onChange={handleInputChange}
                 label="Имя"
+                placeholder="Имя"
                 type="text"
                 name="name"
                 value={userData.name}
@@ -89,6 +97,7 @@ export const SignupPage = () => {
               <TextField
                 onChange={handleInputChange}
                 label="Фамилия"
+                placeholder="Фамилия"
                 type="text"
                 name="surname"
                 value={userData.surname}
@@ -97,13 +106,19 @@ export const SignupPage = () => {
             <TextField
               onChange={handleInputChange}
               label="Пароль"
+              placeholder="Пароль"
               type="password"
               name="password"
               value={userData.password}
               className={styles.margin}
             />
-            <Button type="submit" variant="contained" color="primary">
-              {isSending ? 'В процессе...' : 'Зарегистрироваться'}
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              data-testid="signup-page-submit"
+            >
+              {props.isSending ? 'В процессе...' : 'Зарегистрироваться'}
             </Button>
           </Form>
         </WithLogo>

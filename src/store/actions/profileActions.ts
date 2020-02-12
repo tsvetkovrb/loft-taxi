@@ -17,11 +17,11 @@ export const sendingProfileDataFail = () => ({
   type: T.SENDING_PROFILE_DATA_FAIL,
 });
 
-interface IPayload extends ICardData {
+export interface IPayloadProfileData extends ICardData {
   token: string;
 }
 
-export const sendingProfileData = (payload: IPayload) => async (
+export const sendingProfileData = (payload: IPayloadProfileData) => async (
   dispatch: Dispatch,
   api: AxiosInstance,
   getState: () => RootState,

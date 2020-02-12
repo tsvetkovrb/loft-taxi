@@ -1,10 +1,10 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import { LoginPage } from 'pages/LoginPage';
-import { SignupPage } from 'pages/SignupPage';
-import { ProfilePage } from 'pages/ProfilePage';
 import { MapPage } from 'pages/MapPage';
+import { LoginPageContainer as LoginPage } from 'containers/LoginPageContainer';
+import { SignupPageContainer as SignupPage } from 'containers/SignupPageContainer';
+import { ProfilePageContainer as ProfilePage } from 'containers/ProfilePageContainer';
 
 import { CustomRoute } from 'components/CustomRoute';
 import { HeaderContainer } from 'containers/HeaderContainer';
