@@ -13,8 +13,9 @@ export const sendingProfileDataSuccess = (payload: ICardData) => ({
   payload,
 });
 
-export const sendingProfileDataFail = () => ({
+export const sendingProfileDataFail = (payload: any) => ({
   type: T.SENDING_PROFILE_DATA_FAIL,
+  payload,
 });
 
 export interface IPayloadProfileData extends ICardData {
@@ -40,6 +41,6 @@ export const sendingProfileData = (payload: IPayloadProfileData) => async (
       localStorage.setItem('store', stringifedStore);
     }
   } catch (error) {
-    console.log(error);
+    dispatch(sendingProfileDataFail(error));
   }
 };

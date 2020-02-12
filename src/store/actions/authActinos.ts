@@ -12,8 +12,9 @@ export const loginActionSuccess = (payload: string) => ({
   payload,
 });
 
-export const loginActionFail = () => ({
+export const loginActionFail = (payload: any) => ({
   type: T.FETCH_LOGIN_USER_FAIL,
+  payload,
 });
 
 export const logoutAction = () => ({
@@ -41,6 +42,6 @@ export const loginAction = (email: string, password: string) => async (
       localStorage.setItem('store', store);
     }
   } catch (error) {
-    console.log(error);
+    dispatch(loginActionFail(error));
   }
 };

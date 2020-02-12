@@ -9,8 +9,9 @@ export const signupActionSuccess = () => ({
   type: T.SIGNUP_USER_SUCCESS,
 });
 
-export const signupActionFail = () => ({
+export const signupActionFail = (payload: any) => ({
   type: T.SIGNUP_USER_FAIL,
+  payload,
 });
 
 export const signupAction = (payload: any) => async (dispatch: any, api: any) => {
@@ -24,6 +25,6 @@ export const signupAction = (payload: any) => async (dispatch: any, api: any) =>
       dispatch(signupActionSuccess());
     }
   } catch (error) {
-    console.log(error);
+    dispatch(signupActionFail(error));
   }
 };
