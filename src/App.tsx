@@ -1,50 +1,31 @@
-import React, { useState, createContext, useMemo, useCallback } from 'react';
-import { Header } from 'components/Header/Header';
-import { ScreenHandler } from 'components/ScreenHandler/ScreenHandler';
+import React from 'react';
+import { Switch, Redirect } from 'react-router-dom';
 
-import styles from './App.module.css';
+import { MapPage } from 'pages/MapPage';
+import { LoginPageContainer as LoginPage } from 'containers/LoginPageContainer';
+import { SignupPageContainer as SignupPage } from 'containers/SignupPageContainer';
+import { ProfilePageContainer as ProfilePage } from 'containers/ProfilePageContainer';
 
-export interface ICustomContext {
-  activeScreen?: string;
-  isLoggedIn?: boolean;
-  logout?: () => void;
-  login?: (email: string, password: string) => void;
-  setActiveScreen?: (screen: string) => void;
+import { CustomRoute } from 'components/CustomRoute';
+import { HeaderContainer } from 'containers/HeaderContainer';
+
+import './App.module.scss';
+
+interface IAppProps {
+  isAuth: boolean;
 }
 
-export const CustomContext = createContext({});
-
-export const App: React.FC = () => {
-  const [activeScreen, setActiveScreen] = useState('login');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const handleLogin = useCallback((email: string, password: string) => {
-    const hasEmail = email.length;
-    const hasPassword = password.length;
-
-    if (!hasEmail || !hasPassword) {
-      return alert('Введите логин и пароль!');
-    }
-
-    setIsLoggedIn(true);
-  }, []);
-
-  const customContext: ICustomContext = useMemo(() => {
-    return {
-      activeScreen,
-      isLoggedIn,
-      logout: () => setIsLoggedIn(false),
-      login: handleLogin,
-      setActiveScreen,
-    };
-  }, [activeScreen, isLoggedIn, handleLogin]);
-
+export const App: React.FC<IAppProps> = props => {
   return (
-    <CustomContext.Provider value={customContext}>
-      <Header navigateTo={setActiveScreen} />
-      <div className={styles.App}>
-        <ScreenHandler />
-      </div>
-    </CustomContext.Provider>
+    <>
+      <HeaderContainer />
+      <Switch>
+        <Redirect exact from="/" to="/map" />
+        <CustomRoute path="/map" to="/login" isAuth={props.isAuth} component={MapPage} />
+        <CustomRoute path="/profile" to="/login" isAuth={props.isAuth} component={ProfilePage} />
+        <CustomRoute path="/login" to="/profile" isAuth={!props.isAuth} component={LoginPage} />
+        <CustomRoute path="/signup" to="/profile" isAuth={!props.isAuth} component={SignupPage} />
+      </Switch>
+    </>
   );
 };

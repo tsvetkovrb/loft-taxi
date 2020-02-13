@@ -1,21 +1,9 @@
-import React, { useCallback, useContext } from 'react';
+import React from 'react';
 import { AppBar, Container, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
-import logoIcon from './static/logo.png';
-import { ROUTES } from 'utils/routes';
-import { CustomContext, ICustomContext } from 'App';
+import { Link } from 'react-router-dom';
 
-interface IProps {
-  navigateTo: (route: string) => void;
-}
-
-type LinkData = {
-  className: string;
-  text: string;
-  href: string;
-  address: string;
-  isAuthorizedShow: boolean;
-};
+import LogoIcon from 'static/logo_dark.png';
 
 const useStyles = makeStyles({
   header: {
@@ -29,78 +17,48 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
+  link: {
+    textDecoration: 'none',
+  },
 });
 
-const headerStructure = [
-  {
-    className: 'header__item',
-    text: 'Войти',
-    href: '/',
-    address: ROUTES.login,
-    isAuthorizedShow: false,
-  },
-  {
-    className: 'header__item',
-    text: 'Зарегестрироваться',
-    href: '/',
-    address: ROUTES.signup,
-    isAuthorizedShow: false,
-  },
-  {
-    className: 'header__item',
-    text: 'Карта',
-    href: '/',
-    address: ROUTES.map,
-    isAuthorizedShow: true,
-  },
-  {
-    className: 'header__item',
-    text: 'Профиль',
-    href: '/',
-    address: ROUTES.profile,
-    isAuthorizedShow: true,
-  },
-];
+interface IHeaderProps {
+  isAuth: boolean;
+  doLogout?: any;
+}
 
-export const Header: React.FC<IProps> = React.memo(({ navigateTo }) => {
+export const Header = React.memo((props: IHeaderProps) => {
   const styles = useStyles();
 
-  const { isLoggedIn, logout }: ICustomContext = useContext(CustomContext);
-
-  const handleClick = useCallback(
-    route => (e: any) => {
-      e.preventDefault();
-
-      navigateTo(route);
-    },
-    [navigateTo],
+  const renderAuthedControls = () => (
+    <>
+      <Link to="/map" className={styles.link}>
+        <Button>Карта</Button>
+      </Link>
+      <Link to="/profile" className={styles.link}>
+        <Button>Профиль</Button>
+      </Link>
+      <Button onClick={props.doLogout}>Выйти</Button>
+    </>
   );
 
-  const showAvailableLinks = (
-    links: LinkData[],
-    condition: boolean = false,
-  ) => {
-    return links.filter(linkData => linkData.isAuthorizedShow === condition);
-  };
+  const renderUnAuthedControls = () => (
+    <>
+      <Link to="/login" className={styles.link}>
+        <Button>Войти</Button>
+      </Link>
+      <Link to="/signup" className={styles.link}>
+        <Button>Зарегестрироваться</Button>
+      </Link>
+    </>
+  );
 
   return (
-    <AppBar className={styles.header} position="static" data-testid="header">
-      <Container className={styles.container}>
-        <img src={logoIcon} alt="Loft taxi" />
+    <AppBar className={styles.header} position="fixed">
+      <Container className={styles.container} data-testid="header">
+        <img src={LogoIcon} alt="Loft taxi" />
         <div data-testid="controls">
-          {showAvailableLinks(headerStructure, isLoggedIn).map(
-            (headerItem, index) => (
-              <Button
-                key={index}
-                href={headerItem.href}
-                className={headerItem.className}
-                onClick={handleClick(headerItem.address)}
-              >
-                {headerItem.text}
-              </Button>
-            ),
-          )}
-          {isLoggedIn && <Button onClick={logout}>Выйти</Button>}
+          {props.isAuth ? renderAuthedControls() : renderUnAuthedControls()}
         </div>
       </Container>
     </AppBar>
