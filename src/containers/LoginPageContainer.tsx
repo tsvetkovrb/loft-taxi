@@ -7,7 +7,8 @@ import { loginAction } from 'store/actions/authActinos';
 export const LoginPageContainer = () => {
   const dispatch = useDispatch();
   const isFetching = useSelector(state => state.authReducer.isFetching);
-  const handleLogin = (email: string, password: string) => dispatch(loginAction(email, password));
+  const handleLogin = (email: string, password: string) =>
+    dispatch(loginAction({ email, password }));
 
   return <LoginPage isFetching={isFetching} handleLogin={handleLogin} />;
 };

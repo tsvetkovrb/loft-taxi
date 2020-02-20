@@ -1,5 +1,13 @@
-import axios from 'axios';
+import axios, { Method } from 'axios';
 
-export const request = axios.create({
+const request = axios.create({
   baseURL: 'https://loft-taxi.glitch.me',
 });
+
+export const makeRequest = (url: string, method: Method, data?: any) => {
+  return request({
+    method,
+    url,
+    data,
+  });
+};
