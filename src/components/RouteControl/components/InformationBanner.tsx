@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Typography, makeStyles } from '@material-ui/core';
-import { history } from 'utils/history';
 
 const useStyles = makeStyles({
   mb30: {
@@ -8,23 +7,26 @@ const useStyles = makeStyles({
   },
 });
 
-export const InformationBanner = () => {
-  const styles = useStyles();
+interface IInformationBanner {
+  title: string;
+  info: string;
+  buttonTitle: string;
+  onClick: () => void;
+}
 
-  const goToProfilePage = () => {
-    history.push('/profile');
-  };
+export const InformationBanner: React.FC<IInformationBanner> = props => {
+  const styles = useStyles();
 
   return (
     <>
       <Typography variant="h4" className={styles.mb30}>
-        Заполните платежные данные
+        {props.title}
       </Typography>
       <Typography variant="subtitle1" className={styles.mb30}>
-        Укажите информацию о банковской карте, чтобы сделать заказ
+        {props.info}
       </Typography>
-      <Button fullWidth variant="contained" color="primary" onClick={goToProfilePage}>
-        Перейти в профиль
+      <Button fullWidth variant="contained" color="primary" onClick={props.onClick}>
+        {props.buttonTitle}
       </Button>
     </>
   );

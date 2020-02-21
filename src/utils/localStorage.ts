@@ -10,5 +10,9 @@ export const getSavedStore = () => {
 };
 
 export const saveStore = (store: TRootState) => {
-  localStorage.setItem('store', JSON.stringify(store));
+  try {
+    localStorage.setItem('store', JSON.stringify(store));
+  } catch (error) {
+    console.log(error);
+  }
 };

@@ -100,7 +100,7 @@ export const MapPage: React.FC<IMapPageProps> = props => {
   return (
     <section data-testid="map-page" className={styles.mapPageWrapper}>
       <div ref={mapContainer} className={styles.mapPage}></div>
-      <RouteControl />
+      <RouteControl clearMap={clearMap} />
     </section>
   );
 };

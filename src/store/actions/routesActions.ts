@@ -18,3 +18,7 @@ export const routesAction = (payload: any) => ({
   type: T.FETCH_ROUTES,
   payload,
 });
+
+export const cancelRequest = () => ({
+  type: T.CANCEL_REQUEST,
+});
