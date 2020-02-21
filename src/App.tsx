@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 
-import { MapPage } from 'pages/MapPage';
+import { MapPageContainer as MapPage } from 'containers/MapPageContainer';
 import { LoginPageContainer as LoginPage } from 'containers/LoginPageContainer';
 import { SignupPageContainer as SignupPage } from 'containers/SignupPageContainer';
 import { ProfilePageContainer as ProfilePage } from 'containers/ProfilePageContainer';

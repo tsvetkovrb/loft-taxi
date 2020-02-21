@@ -1,21 +1,18 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
+import createSagaMiddleware from 'redux-saga';
+import { getSavedStore } from 'utils/localStorage';
 import { rootReducer } from './reducers';
-import { customMiddleware } from './middlewares/customMiddleware';
+import { rootSaga } from './sagas';
 
-export type RootState = ReturnType<typeof rootReducer>;
+const sagaMiddleware = createSagaMiddleware();
 
-let preloadedStore = null;
+const preloadedStore = getSavedStore();
 
-try {
-  preloadedStore = localStorage.getItem('store');
-  if (preloadedStore) {
-    preloadedStore = JSON.parse(preloadedStore);
-  }
-} catch (error) {
-  console.log(error);
-}
+export const store = createStore(
+  rootReducer,
+  preloadedStore,
+  applyMiddleware(sagaMiddleware, logger),
+);
 
-export const store = preloadedStore
-  ? createStore(rootReducer, preloadedStore as any, applyMiddleware(customMiddleware, logger))
-  : createStore(rootReducer, applyMiddleware(customMiddleware, logger));
+sagaMiddleware.run(rootSaga);
