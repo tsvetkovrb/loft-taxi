@@ -1,15 +1,22 @@
 import React from 'react';
-import { ProfilePage } from 'pages/ProfilePage';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'store';
 import { IPayloadProfileData, sendingProfileData } from 'store/actions/profileActions';
+import { ProfileFrom } from 'forms/ProfileFrom';
 
-export const ProfilePageContainer = () => {
+export const ProfileFormContainer = () => {
   const dispatch = useDispatch();
   const token = useSelector(state => state.authReducer.token);
-  const isSending = useSelector(state => state.profileReducer.isSending);
+  const { isSending, cardData } = useSelector(state => state.profileReducer);
 
   const sendCardData = (data: IPayloadProfileData) => dispatch(sendingProfileData(data));
 
-  return <ProfilePage isSending={isSending} token={token} sendCardData={sendCardData} />;
+  return (
+    <ProfileFrom
+      isSending={isSending}
+      token={token}
+      sendCardData={sendCardData}
+      cardData={cardData}
+    />
+  );
 };

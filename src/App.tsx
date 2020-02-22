@@ -3,8 +3,8 @@ import { Switch, Redirect } from 'react-router-dom';
 
 import { LoginPage } from 'pages/LoginPage';
 import { SignupPage } from 'pages/SignupPage';
+import { ProfilePage } from 'pages/ProfilePage';
 import { MapPageContainer as MapPage } from 'containers/MapPageContainer';
-import { ProfilePageContainer as ProfilePage } from 'containers/ProfilePageContainer';
 
 import { CustomRoute } from 'components/CustomRoute';
 import { HeaderContainer } from 'containers/HeaderContainer';

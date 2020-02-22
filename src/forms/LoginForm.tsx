@@ -59,7 +59,7 @@ export const LoginForm: React.FC<ILoginFormProps> = props => {
         </Link>
       </Typography>
       <Controller
-        as={<CustomInput />}
+        as={<CustomInput errors={errors} />}
         type="text"
         name="email"
         label="Адрес электронной почты"
@@ -67,10 +67,9 @@ export const LoginForm: React.FC<ILoginFormProps> = props => {
         control={control}
         className={styles.input}
         defaultValue=""
-        errors={errors}
       />
       <Controller
-        as={<CustomInput />}
+        as={<CustomInput errors={errors} />}
         className={styles.input}
         defaultValue=""
         type="password"
@@ -78,7 +77,6 @@ export const LoginForm: React.FC<ILoginFormProps> = props => {
         label="Пароль"
         placeholder="Пароль"
         control={control}
-        errors={errors}
       />
       <CustomButton
         className={styles.loginButton}

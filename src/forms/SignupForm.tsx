@@ -60,47 +60,43 @@ export const SignupForm: React.FC<ISignupFormProps> = props => {
       </Typography>
       <Controller
         defaultValue=""
-        as={<CustomInput />}
+        as={<CustomInput errors={errors} />}
         control={control}
         label="Адрес электронной почты"
         placeholder="Адрес электронной почты"
         type="text"
         name="email"
-        errors={errors}
         className={styles.margin}
       />
       <div className={fieldsWrapperStyles}>
         <Controller
           defaultValue=""
-          as={<CustomInput />}
+          as={<CustomInput errors={errors} />}
           control={control}
           label="Имя"
           placeholder="Имя"
           type="text"
           name="name"
-          errors={errors}
           className={styles.nameInput}
         />
         <Controller
           defaultValue=""
-          as={<CustomInput />}
+          as={<CustomInput errors={errors} />}
           control={control}
           label="Фамилия"
           placeholder="Фамилия"
           type="text"
           name="surname"
-          errors={errors}
         />
       </div>
       <Controller
         defaultValue=""
-        as={<CustomInput />}
+        as={<CustomInput errors={errors} />}
         control={control}
         label="Пароль"
         placeholder="Пароль"
         type="password"
         name="password"
-        errors={errors}
         className={styles.margin}
       />
       <CustomButton
