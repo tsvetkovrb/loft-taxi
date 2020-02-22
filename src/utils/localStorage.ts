@@ -1,11 +1,13 @@
 import { TRootState } from './types';
 
 export const getSavedStore = () => {
-  let savedStore = null;
+  let savedStore = {};
 
   try {
     const store = localStorage.getItem('store');
-    savedStore = store ? JSON.parse(store) : {};
+    if (store) {
+      savedStore = JSON.parse(store);
+    }
   } catch (error) {
     console.log(error);
   }
