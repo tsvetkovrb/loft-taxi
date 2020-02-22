@@ -7,6 +7,7 @@ interface IFormProps {
   title: string;
   className?: string;
   onSubmit: () => void;
+  'data-testid'?: string;
 }
 
 const useStyles = makeStyles({
@@ -34,7 +35,7 @@ export const Form: React.FC<IFormProps> = props => {
   };
 
   return (
-    <form className={styles.formWrapper} onSubmit={onSubmit} data-testid="form">
+    <form className={styles.formWrapper} onSubmit={onSubmit} data-testid={props['data-testid']}>
       <h2 className={styles.formTitle}>{props.title}</h2>
       {props.children}
     </form>

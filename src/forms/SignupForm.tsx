@@ -51,7 +51,7 @@ export const SignupForm: React.FC<ISignupFormProps> = props => {
   });
 
   return (
-    <Form title="Регистрация" onSubmit={handleSubmit(onSubmit)}>
+    <Form title="Регистрация" onSubmit={handleSubmit(onSubmit)} data-testid="signup-form">
       <Typography className={styles.paragraph}>
         Уже зарегистрирован?&nbsp;
         <Link to="/login" className={styles.link}>

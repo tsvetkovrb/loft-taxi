@@ -51,7 +51,12 @@ export const LoginForm: React.FC<ILoginFormProps> = props => {
   };
 
   return (
-    <Form className={styles.form} title="Войти" onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      className={styles.form}
+      title="Войти"
+      onSubmit={handleSubmit(onSubmit)}
+      data-testid="login-form"
+    >
       <Typography className={styles.paragraph}>
         Новый пользователь?{' '}
         <Link to="/signup" className={styles.link}>

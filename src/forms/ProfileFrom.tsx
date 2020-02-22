@@ -51,7 +51,7 @@ export const ProfileFrom: React.FC<IProfileFormProps> = props => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form} data-testid="profile-form">
       <div className={styles.cardsWrapper}>
         <CardWrapper>
           <FrontSideCard errors={errors} control={control} />
