@@ -9,11 +9,11 @@ import {
   routesActionFail,
 } from 'store/actions/routesActions';
 
-function fetchRoutes(from: string, to: string) {
+export function fetchRoutes(from: string, to: string) {
   return makeRequest(`/route?address1=${from}&address2=${to}`, 'GET');
 }
 
-function* watchFetchRoutes(action: any) {
+export function* watchFetchRoutes(action: any) {
   const { from, to } = action.payload;
   yield put(routesActionStart());
 

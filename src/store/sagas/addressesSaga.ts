@@ -8,11 +8,11 @@ import {
 } from 'store/actions/addressesActions';
 import { AxiosResponse } from 'axios';
 
-function fetchAddresses() {
+export function fetchAddresses() {
   return makeRequest('/addressList', 'GET');
 }
 
-function* watchFetchAddresses() {
+export function* watchFetchAddresses() {
   yield put(addressesActionStart());
 
   try {

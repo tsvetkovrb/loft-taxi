@@ -6,11 +6,11 @@ import { TRootState } from 'utils/types';
 import { saveStore } from 'utils/localStorage';
 import { loginActionStart, loginActionSuccess, loginActionFail } from 'store/actions/authActinos';
 
-function authRequest(email: string, password: string) {
+export function authRequest(email: string, password: string) {
   return makeRequest('/auth', 'POST', { email, password });
 }
 
-function* watchLoginUser(action: any) {
+export function* watchLoginUser(action: any) {
   const { email, password } = action.payload;
   yield put(loginActionStart());
 
@@ -24,6 +24,8 @@ function* watchLoginUser(action: any) {
 
       const store: TRootState = yield select();
       yield saveStore(store);
+    } else {
+      yield put(loginActionFail(data.error));
     }
   } catch (error) {
     yield put(loginActionFail(error));
