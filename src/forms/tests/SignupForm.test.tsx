@@ -4,8 +4,8 @@ import { SignupForm } from 'forms/SignupForm';
 import { Router } from 'react-router-dom';
 import { history } from 'utils/history';
 
-describe('SignupForm.test', () => {
-  test('SignupForm', () => {
+describe('SignupForm', () => {
+  test('should be in the document', () => {
     const { getByTestId } = render(
       <Router history={history}>
         <SignupForm handleSignup={jest.fn()} isSending={false} />

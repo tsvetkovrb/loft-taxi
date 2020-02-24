@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { ProfileFrom } from 'forms/ProfileFrom';
 
-describe('ProfileFrom.test', () => {
-  test('ProfileFrom', () => {
+describe('ProfileFrom', () => {
+  test('should be in the document', () => {
     const { getByTestId } = render(
       <ProfileFrom
         isSending={false}
