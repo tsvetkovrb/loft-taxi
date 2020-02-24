@@ -2,7 +2,7 @@ import { initialState, profileReducer } from '../profileReducer';
 import * as T from 'store/actionTypes';
 
 describe('profileReducer', () => {
-  test('Отправили завпрос', () => {
+  test('Send request', () => {
     const action = {
       type: T.SENDING_PROFILE_DATA_START,
     };
@@ -13,7 +13,7 @@ describe('profileReducer', () => {
     });
   });
 
-  test('Получили ответ, положили данные в store', () => {
+  test('Get response', () => {
     const cardData = {
       cardNumber: '222',
       expiryDate: '222',
@@ -35,7 +35,7 @@ describe('profileReducer', () => {
     });
   });
 
-  test('Обработали ошибку', () => {
+  test('Handling error', () => {
     const action = {
       type: T.SENDING_PROFILE_DATA_FAIL,
       payload: 'Error',
