@@ -14,7 +14,7 @@ export const routesActionFail = (payload: any) => ({
   payload,
 });
 
-export const routesAction = (payload: any) => ({
+export const routesAction = (payload: { from: string; to: string }) => ({
   type: T.FETCH_ROUTES,
   payload,
 });

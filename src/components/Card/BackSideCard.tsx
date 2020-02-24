@@ -1,7 +1,9 @@
 import React from 'react';
-import { TextField, makeStyles } from '@material-ui/core';
+import { Controller } from 'react-hook-form';
+import { makeStyles } from '@material-ui/core';
 
 import { ICardProps } from 'pages/ProfilePage/ProfilePage';
+import { CustomInput } from 'components/shared';
 
 const useStyles = makeStyles({
   backSide: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles({
   },
   cvcCode: {
     marginTop: 'auto',
-    maxWidth: '110px',
+    maxWidth: '150px',
   },
 });
 
@@ -24,7 +26,8 @@ export const BackSideCard: React.FC<ICardProps> = props => {
 
   return (
     <div className={styles.backSide} data-testid="back-side">
-      <TextField
+      <Controller
+        as={<CustomInput errors={props.errors} />}
         placeholder="USER NAME"
         label="Имя владельца:"
         InputLabelProps={{
@@ -32,9 +35,11 @@ export const BackSideCard: React.FC<ICardProps> = props => {
         }}
         className={styles.userName}
         name="cardName"
-        onChange={props.handleInputChange}
+        control={props.control}
       />
-      <TextField
+      <Controller
+        as={<CustomInput errors={props.errors} />}
+        control={props.control}
         placeholder="***"
         label="CVC"
         type="password"
@@ -43,7 +48,6 @@ export const BackSideCard: React.FC<ICardProps> = props => {
         }}
         className={styles.cvcCode}
         name="cvc"
-        onChange={props.handleInputChange}
       />
     </div>
   );

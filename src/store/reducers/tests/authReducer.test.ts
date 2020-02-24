@@ -1,8 +1,8 @@
 import { initialState, authReducer } from '../authReducer';
 import * as T from 'store/actionTypes';
 
-describe('authReducer', () => {
-  test('Отправили завпрос', () => {
+describe('Auth reducer', () => {
+  test('Send request', () => {
     const action = {
       type: T.FETCH_LOGIN_USER_START,
     };
@@ -13,7 +13,7 @@ describe('authReducer', () => {
     });
   });
 
-  test('Получили ответ', () => {
+  test('Get response', () => {
     const action = {
       type: T.FETCH_LOGIN_USER_SUCCESS,
       payload: '123',
@@ -27,7 +27,7 @@ describe('authReducer', () => {
     });
   });
 
-  test('Обработали ошибку', () => {
+  test('Handled error', () => {
     const action = {
       type: T.FETCH_LOGIN_USER_FAIL,
       payload: 'Error',
@@ -40,7 +40,7 @@ describe('authReducer', () => {
     });
   });
 
-  test('Разлогинились', () => {
+  test('Do logout', () => {
     const action = {
       type: T.LOGOUT_USER,
     };

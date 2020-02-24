@@ -2,7 +2,7 @@ import { initialState, signupReducer } from '../signupReducer';
 import * as T from 'store/actionTypes';
 
 describe('signupReducer', () => {
-  test('Отправили завпрос', () => {
+  test('Send request', () => {
     const action = {
       type: T.SIGNUP_USER_START,
     };
@@ -13,7 +13,7 @@ describe('signupReducer', () => {
     });
   });
 
-  test('Получили успешный ответ', () => {
+  test('Get response', () => {
     const action = {
       type: T.SIGNUP_USER_SUCCESS,
     };
@@ -24,7 +24,7 @@ describe('signupReducer', () => {
     });
   });
 
-  test('Ошибку положили в store', () => {
+  test('Handling error', () => {
     const action = {
       type: T.SIGNUP_USER_FAIL,
       payload: 'Error',

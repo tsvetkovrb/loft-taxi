@@ -11,11 +11,11 @@ import { AxiosResponse } from 'axios';
 import { TRootState } from 'utils/types';
 import { saveStore } from 'utils/localStorage';
 
-function profileDataRequest(data: IPayloadProfileData) {
+export function profileDataRequest(data: IPayloadProfileData) {
   return makeRequest('/card', 'POST', data);
 }
 
-function* watchSendingProfileData(action: any) {
+export function* watchSendingProfileData(action: any) {
   const { payload } = action;
   yield put(sendingProfileDataStart());
 
@@ -31,6 +31,8 @@ function* watchSendingProfileData(action: any) {
 
       const store: TRootState = yield select();
       saveStore(store);
+    } else {
+      yield put(sendingProfileDataFail(response.data.error));
     }
   } catch (error) {
     yield put(sendingProfileDataFail(error));

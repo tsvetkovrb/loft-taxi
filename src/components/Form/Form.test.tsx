@@ -5,7 +5,7 @@ import { Form } from './Form';
 describe('Form', () => {
   it('Происходит render компонента', () => {
     const { getByTestId } = render(
-      <Form title="Test title" onSubmit={() => {}}>
+      <Form title="Test title" onSubmit={() => {}} data-testid="form">
         <p>Hello</p>
       </Form>,
     );
@@ -37,7 +37,7 @@ describe('Form', () => {
     const onSubmit = jest.fn();
 
     const { getByTestId } = render(
-      <Form title="title" onSubmit={onSubmit}>
+      <Form title="title" onSubmit={onSubmit} data-testid="form">
         <p>Hello</p>
       </Form>,
     );

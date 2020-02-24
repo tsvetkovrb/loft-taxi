@@ -8,12 +8,13 @@ import {
 } from 'store/actions/signupActions';
 import { makeRequest } from 'api';
 import { history } from 'utils/history';
+import { TSignupFormPayload } from 'utils/types';
 
-function signupRequest(data: any) {
+export function signupRequest(data: TSignupFormPayload) {
   return makeRequest('/register', 'POST', data);
 }
 
-function* watchSignupUser(action: any) {
+export function* watchSignupUser(action: any) {
   const { payload } = action;
   yield put(signupActionStart());
 
@@ -25,6 +26,8 @@ function* watchSignupUser(action: any) {
 
     if (success) {
       yield put(signupActionSuccess());
+    } else {
+      yield put(signupActionFail(data.error));
     }
   } catch (error) {
     yield put(signupActionFail(error));

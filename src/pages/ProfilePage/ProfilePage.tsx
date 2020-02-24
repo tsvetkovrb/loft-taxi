@@ -1,12 +1,7 @@
-import React, { useState, ChangeEvent } from 'react';
-import { makeStyles, Button } from '@material-ui/core';
-
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
 import { WithBackground } from 'components/layout/WithBackground';
-import { CardWrapper } from 'components/layout/CardWrapper';
-import { FrontSideCard } from 'components/Card';
-import { BackSideCard } from 'components/Card';
-
-import { IPayloadProfileData } from 'store/actions/profileActions';
+import { ProfileFormContainer as ProfileForm } from 'containers/ProfileFormContainer';
 
 const useStyles = makeStyles({
   content: {
@@ -34,46 +29,15 @@ const useStyles = makeStyles({
     fontWeight: 400,
     color: '#505050',
   },
-  cardsWrapper: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    marginBottom: '50px',
-    width: '794px',
-  },
 });
 
 export interface ICardProps {
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  errors: any;
+  control: any;
 }
 
-interface IProfilePageProps {
-  token: string;
-  isSending: boolean;
-  sendCardData: (data: IPayloadProfileData) => void;
-}
-
-export const ProfilePage: React.FC<IProfilePageProps> = props => {
+export const ProfilePage = () => {
   const styles = useStyles();
-  const [cardData, setCardData] = useState({
-    cardNumber: '',
-    expiryDate: '',
-    cardName: '',
-    cvc: '',
-  });
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.currentTarget;
-
-    setCardData({ ...cardData, [name]: value });
-  };
-
-  const sendCardData = () => {
-    props.sendCardData({
-      ...cardData,
-      token: props.token,
-    });
-  };
 
   return (
     <section data-testid="profile-page">
@@ -84,22 +48,7 @@ export const ProfilePage: React.FC<IProfilePageProps> = props => {
             <span className={styles.subtitle}>Способ оплаты</span>
           </div>
 
-          <div className={styles.cardsWrapper}>
-            <CardWrapper>
-              <FrontSideCard handleInputChange={handleInputChange} />
-            </CardWrapper>
-            <CardWrapper>
-              <BackSideCard handleInputChange={handleInputChange} />
-            </CardWrapper>
-          </div>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={sendCardData}
-            data-testid="profile-page-button"
-          >
-            {props.isSending ? 'В процессе...' : 'Сохранить'}
-          </Button>
+          <ProfileForm />
         </div>
       </WithBackground>
     </section>

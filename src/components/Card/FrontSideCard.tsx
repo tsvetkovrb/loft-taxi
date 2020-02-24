@@ -1,7 +1,9 @@
 import React from 'react';
-import { TextField, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+import { Controller } from 'react-hook-form';
 import mcLogo from 'static/logo_mc.png';
 import { ICardProps } from 'pages/ProfilePage/ProfilePage';
+import { CustomInput } from 'components/shared';
 
 const useStyles = makeStyles({
   frontSide: {
@@ -31,7 +33,8 @@ export const FrontSideCard: React.FC<ICardProps> = props => {
   return (
     <div className={styles.frontSide} data-testid="front-side">
       <img src={mcLogo} alt="Master Card" className={styles.mcLogo} />
-      <TextField
+      <Controller
+        as={<CustomInput errors={props.errors} />}
         placeholder="0000 0000 0000 0000"
         label="Номер карты*"
         name="cardNumber"
@@ -39,14 +42,14 @@ export const FrontSideCard: React.FC<ICardProps> = props => {
           shrink: true,
         }}
         className={styles.cardNumber}
-        onChange={props.handleInputChange}
+        control={props.control}
       />
-
-      <TextField
+      <Controller
+        as={<CustomInput errors={props.errors} />}
         placeholder="02/01"
         className={styles.dateField}
         name="expiryDate"
-        onChange={props.handleInputChange}
+        control={props.control}
       />
     </div>
   );

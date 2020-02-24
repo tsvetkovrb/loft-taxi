@@ -10,6 +10,7 @@ jest.mock('mapbox-gl/dist/mapbox-gl', () => ({
     addControl: jest.fn(),
     on: jest.fn(),
     remove: jest.fn(),
+    getLayer: jest.fn(),
   })),
   NavigationControl: jest.fn(),
 }));
